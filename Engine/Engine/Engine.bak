@@ -1,0 +1,74 @@
+Rem Project: Engine
+Rem Created: 11/11/2009 5:56:49 PM
+
+Rem ***** Main Source File *****
+Sync On
+Sync Rate 30
+rem make matrix.
+make matrix 1,10000,10000,20,20
+   REM load textures
+load image "apple.jpg",1
+load image "ugly.jpg",2
+load image "grass.jpg",3
+prepare matrix texture 1,3,2,2
+fill matrix 1,0,1
+randomize matrix 1,250
+
+rem sets indidvidual cells in a matrix to a specific image tile.
+rem with the set matrix tile command. here, we have "1" the name of
+rem the matrix.  x = row, y = column, t = individual cell of matrix.
+for x = 0 to 19
+   for z = 0 to 19
+       t = rnd(3)+1
+       set matrix tile 1,x,z,t
+   next z
+next x
+update matrix 1
+For x = 1 to 5
+   make object cube x,80
+   position object x,(x*100),35,2000
+   set object collision to boxes x
+   texture object x,2
+next x
+make object sphere 10,100
+position object 10, 100,0,100
+
+set object collision to spheres 10
+texture object 10,1
+
+
+
+rem Start engine
+Do
+
+   set cursor 0,0
+   print screen fps()
+   AngleY# = object angle Y(10)
+    Rem Control input for camera
+   If Upkey()=1
+      XTest# = Newxvalue(X#,AngleY#,20)
+      ZTest# = Newzvalue(Z#,AngleY#,20)
+      If XTest#>0 and XTest#<10000 and ZTest#>0 and ZTest#<10000
+         Move object 10,10
+      Endif
+   Endif
+
+   If Leftkey()=1 then Yrotate object 10,Wrapvalue(AngleY#-5)
+   If Rightkey()=1 then Yrotate object 10,Wrapvalue(AngleY#+5)
+If Object collision(10,0)>0 then position object 10,X#,Y#,Z#
+   X# = Object position x(10)
+   Z# = Object position z(10)
+   Y# = Get Ground Height(1,X#,Z#)
+   Position object 10,X#,Y#+42.5,Z#
+   CameraZ# = Newzvalue(Z#,AngleY#-180,250)
+   CameraX# = Newxvalue(X#,AngleY#-160,100)
+   CameraY# = Get Ground Height(1,CameraX#,CameraZ#)
+   Position camera CameraX#,CameraY#+50,CameraZ#
+   Point camera X#,Y#+25,Z#
+
+   scroll object texture 3,0.998,0.998
+   Scroll object texture 2,0,0.005
+   Scale object texture 3,0.998,0.998
+   Scale object texture 4,1.001,1.001
+   Sync
+Loop
