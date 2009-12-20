@@ -1,0 +1,62 @@
+; **** Dark BASIC Professional Project File ****
+; **** Written by DarkBASIC Professional Editor ****
+version=DBP1.00
+project name=Engine_Final
+
+; **** source file information ****
+main=Engine_new1.dba
+LineMain=0
+final source=_Temp.dbsource
+
+; **** Executable Information  ***
+; build types: exe, media, installer, alone
+executable=C:\Documents and Settings\Adam\My Documents\DarkBasic-\Engine\Engine\ACMEngine.exe
+build type=exe
+; ** Media file compression **
+compression=NO
+
+; ** Media file encryption **
+encryption=NO
+; ** Display the card options screen window? **
+card options window=NO
+
+; **** debugger information ****
+; If the editor sets this to yes, it is running in debug mode
+CLI=NO
+CommandLineArguments=
+
+; **** display mode information ****
+app title=Dark Basic Pro Project
+
+; graphics mode options: fullscreen, window, desktop, fulldesktop, hidden
+graphics mode=fullscreen
+fullscreen resolution=800x600x32
+
+; arbitrary sizes are valid for windowed mode
+window resolution=800x600
+
+; **** External Files Information ****
+
+; **** Media ****
+; Example entries: media1=graphics\*.jpg
+media root path=C:\Documents and Settings\Adam\My Documents\DarkBasic-\Engine\Engine\
+
+; **** Icons ****
+
+; **** Cursors ****
+
+; **** Version Info ****
+VerComments=
+VerCompany=
+VerFileDesc=
+VerFileNumber=
+VerInternal=
+VerCopyright=
+VerTrademark=
+VerFilename=
+VerProduct=
+VerProductNumber=v1.0
+
+; **** To Do ****
+
+; **** Comments ****
