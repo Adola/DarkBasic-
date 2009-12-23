@@ -1,5 +1,21 @@
 Rem Project: Engine
 Rem Created: 11/11/2009 5:56:49 PM
+rem Author: Adam Fowler (Student I.D. 90146512)
+rem NOTE: All code up to v1.0 is authored by Adam Fowler
+remstart
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+remend
 
 Rem ***** Main Source File *****
 rem Variables++++++++++++++++++++++++++++++++++++++++++++++++++++++++Variables
@@ -28,16 +44,17 @@ set cursor 0,0
 `color light 0,512,512,255
 `set light range 0,1000
 rem Sounds!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Sounds
-`load sound "landing.wav",1
-`loop sound 1
-`load 3dsound "Fire loop.wav",2
-`load sound "Machine gun 1.wav",3
-`position sound 2,200,100,200 
-`loop sound 2
-load sound "step8.wav",4
+load sound "landing.wav",1
+loop sound 1
+load 3dsound "Fire loop.wav",2
+load sound "Machine gun 1.wav",3
+position sound 2,200,100,200 
+loop sound 2
+`load sound "step8.wav",4
 REM load textures and objects++++++++++++++++++++++++++++++++++++++++++Textures
 load image "apple.jpg",1
-load image "grass.jpg",3
+load image "sand.jpg",3
+load image "t_skin12.jpg",4
 Rem load particles++++++++++++++++++++++++++++++++++++++++++++++++++++Particles
 Load Image "smoke.jpg",4
 For x = 0 to 20
@@ -57,6 +74,8 @@ prepare matrix texture 1,3,1,1
    rem Builds matrix.
 randomize matrix 1,150
 update matrix 1
+
+
 REM objects+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Objects
 load object "AST_01.X",52
 load object "H-AK47-Static.X",53
@@ -80,6 +99,26 @@ set object collision on 54
   ` Rem Sets Static Textures.
 `texture object 10,1
 `Make player object
+rem create decorative trees
+t=300
+For x = 1 to 9
+	For z = 1 to 9
+		load object "Trees1c.x",t
+		set object transparency t, 4
+		r = rnd(10)
+		Scale object t,600+rnd(500),600+rnd(500),600+rnd(500)
+			if rnd(10) > 9
+				Scale object t,1000+rnd(500),1000+rnd(500),1000+rnd(500)
+					if rnd(20) > 19
+						Scale object t,10000+rnd(5000),10000+rnd(5000),10000+rnd(5000)
+					endif 	
+			endif
+		y = get ground height(1,(x*100)*r,(z*100)*r)
+		position object t,(x*100)*r,y,(z*100)*r
+		set object collision off t
+		inc t
+	next z
+next x
 rem Make Gun +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Guns
 Rem Default gun.
 XRotate Object 53,0
@@ -125,7 +164,7 @@ rem mouseclick()=1 right, 2, left mouse.
     REM Fire a bullet
     if FIRE=1 and bullets > 0
         REM Make a bullet
-        `play sound 3
+        play sound 3
         dec bullets 
         done=0
         n=1
